@@ -1,0 +1,5 @@
+# Jupiter segons SW legacy !!
+Omega 0.000176 # Angular speed of planet rad/s
+rE 7.1492e7 # Equatorial radius of planet m
+rP 6.6852e7 # Polar radius of planet m
+gE 22.58 # Reference gravity m/s^2

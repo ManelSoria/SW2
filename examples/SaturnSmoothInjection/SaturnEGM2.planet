@@ -1,0 +1,5 @@
+# Saturn segons Enrique G.M. versio CORREGIDA !!
+Omega 0.00016379 # Angular speed of planet rad/s
+rE 60330e3 # Equatorial radius of planet m
+rP 54180e3 # Polar radius of planet m
+gE 8.78 # Reference gravity m/s^2

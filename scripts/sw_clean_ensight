@@ -1,0 +1,9 @@
+#erases all ensight output
+rm $1.ensi.U-*
+rm $1.ensi.V-*
+rm $1.ensi.ZONAL_WIND-*
+rm $1.ensi.ETA-*
+rm $1.ensi.PVORT-*
+rm $1.ensi.TRACER-*
+rm $1.ensi.case
+rm $1.ensi.geo
