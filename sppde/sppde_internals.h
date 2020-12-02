@@ -1,6 +1,15 @@
-// sppde: structured parallel pde solver
-// Manel Soria 2017 - UPC - ESEIAAT - TUAREG
+/*
+This file is part of SW2 code
 
+2018-2020
+Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres-Carcasona, Arnau Miro, Enrique Garcia-Melendo
+UPC - ESEIAAT - TUAREG
+
+(c) Manel Soria, Enrique Garcia-Melendo 2018-2020
+
+LICENSED UNDER: Attribution 4.0 International
+
+*/
 // internal functions
 
 int pack(double *b,int q0,double *x,int i1,int i2,int j1,int j2,map *M); // 2d

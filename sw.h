@@ -1,8 +1,15 @@
-// SW2
-// 2018-2020
-// Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres, Enrique Garcia-Melendo
-// UPC - ESEIAAT - TUAREG
+/*
+This file is part of SW2 code
 
+2018-2020
+Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres-Carcasona, Arnau Miro, Enrique Garcia-Melendo
+UPC - ESEIAAT - TUAREG
+
+(c) Manel Soria, Enrique Garcia-Melendo 2018-2020
+
+LICENSED UNDER: Attribution 4.0 International
+
+*/
 #define VERSION "SW 0.125"
 
 #define G_universal 6.67408e-11 // Universal gravity constant

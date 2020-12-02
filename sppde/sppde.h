@@ -1,6 +1,15 @@
-// sppde: structured parallel pde solver
-// Manel Soria 2017 - UPC - ESEIAAT - TUAREG
+/*
+This file is part of SW2 code
 
+2018-2020
+Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres-Carcasona, Arnau Miro, Enrique Garcia-Melendo
+UPC - ESEIAAT - TUAREG
+
+(c) Manel Soria, Enrique Garcia-Melendo 2018-2020
+
+LICENSED UNDER: Attribution 4.0 International
+
+*/
 
 // Use #define CHECK to activate matrix range check. This makes the code slow but safe
 // Don't use it for production runs

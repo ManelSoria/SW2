@@ -1,8 +1,15 @@
-// SW2
-// 2018-2020
-// Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres, Enrique Garcia-Melendo
-// UPC - ESEIAAT - TUAREG
+/*
+This file is part of SW2 code
 
+2018-2020
+Manel Soria, Arnau Prat, Arnau Sabates, Marc Andres-Carcasona, Arnau Miro, Enrique Garcia-Melendo
+UPC - ESEIAAT - TUAREG
+
+(c) Manel Soria, Enrique Garcia-Melendo 2018-2020
+
+LICENSED UNDER: Attribution 4.0 International
+
+*/
 #define N_OUT_VARIABLES 7 // Number of variables of which output files are wanted
 
 void save_ens_case(char *bname, char **var_names, int nstart, int nsteps, double *timevals);
