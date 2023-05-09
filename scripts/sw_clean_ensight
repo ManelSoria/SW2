@@ -1,3 +1,4 @@
+#!/bin/bash
 #erases all ensight output
 rm $1.ensi.U-*
 rm $1.ensi.V-*
