@@ -93,6 +93,7 @@ Runs the time iterations, a.k.a. performs the operations to output the solution.
 
     setzero_scaf(SW->perturbs,SW->M);  // Set perturbs field to 0
     add_Gaussians(Dt, t, SW); // The time to be added here is the updated time t0+dt not t0
+    add_vortices(Dt, t, SW);
 
     halo_update(SW->tracer,SW->M); // Update the halos
     halo_update(SW->eta,SW->M); // Update the halos
@@ -292,7 +293,7 @@ Runs the time iterations, a.k.a. performs the operations to output the solution.
         setzero_scaf(SW->perturbs,SW->M);  // Set perturbs field to 0
         add_Gaussians(Dt, t, SW); // The time to be added here is the updated time t0+dt not t0
         add_vortices(Dt, t, SW);
-	      cr_end("Perturbation",0);
+        cr_end("Perturbation",0);
 
         cr_start("halo_update",0);
         halo_update(SW->tracer,SW->M); // Update the halos

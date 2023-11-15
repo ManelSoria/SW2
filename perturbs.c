@@ -401,7 +401,7 @@ void add_vortices(double Dt, double t, sw *SW){
     double t0_vortex;
     int j;
 
-    double lonc,latc,as,bs,Umax,n;
+    double lonc,latc,as,bs,amp_eta,Umax,n;
 
     for(j=0; j<=SW->num_vortices-1;j++){
 
@@ -419,14 +419,9 @@ void add_vortices(double Dt, double t, sw *SW){
             Umax = SW->vortices[j*N_COLS_VORTICES + 5]; // eg -100.0; //maximum tangential velocity [m/s]
             n = SW->vortices[j*N_COLS_VORTICES + 6]; // eg 2.0;       //paramter to control how flat is the Gaussian distribution
 
-            bs = fabs((bs-latc))/pow(1.0-1.0/(2.0*(n)),1.0/(2.0*n));
-            as = fabs((as-lonc))/pow(1.0-1.0/(2.0*(n)),1.0/(2.0*n));
-            pprintf("as = %e \n",as);
-            pprintf("bs = %e \n",bs);
-            double amp_eta = 0.5*Umax*rM(deg2rad(latc))*deg2rad(bs)*f(deg2rad(latc))*pow((1.0-1.0/(2.0*n)),((1.0-2.0*n)/(2.0*n)))*exp(1.0-1.0/(2.0*n))/(g_eff(deg2rad(latc))*n);
-            pprintf("amp_eta = %e \n",amp_eta);
+            amp_eta = 0.5*Umax*rM(deg2rad(latc))*deg2rad(bs)*f(deg2rad(latc))*pow((1.0-1.0/(2.0*n)),((1.0-2.0*n)/(2.0*n)))*exp(1.0-1.0/(2.0*n))/(g_eff(deg2rad(latc))*n);
 
-            if(info) pprintf("add_vortices t0_vortex=%f, lonc=%f DEG, latc=%f DEG, as=%f DEG, BS=%f DEG, Umax=%f, n=%f\n",t0_vortex,lonc,latc,as,bs,Umax,n);
+            if(info) pprintf("add_vortices t0_vortex=%f, lonc=%f DEG, latc=%f DEG, as=%f DEG, bs=%f DEG, amp=%e, Umax=%f, n=%f\n",t0_vortex,lonc,latc,as,bs,amp_eta,Umax,n);
 
             add_vortex_core(SW->eta, SW->u, SW->v, n, amp_eta, lonc, latc, as, bs, SW);
             halo_update(SW->eta,SW->M);
