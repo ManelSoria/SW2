@@ -3,11 +3,12 @@
 ####################################################################################
 
 # Minimal CMake version required:
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.6)
+project(SW2)
 
 # Compiler to use (this is an OpenMPI code, so we will be using the wrapper):
-SET(CMAKE_C_COMPILER /usr/bin/mpicc)
-SET(CMAKE_CXX_COMPILER /usr/bin/mpicc+)
+SET(CMAKE_C_COMPILER mpicc)
+SET(CMAKE_CXX_COMPILER mpicc+)
 
 # The code uses some C99 syntax (as in for loops)
 # Don't use c99 or c11, otherwise pclose will be implicit:
@@ -43,13 +44,14 @@ include_directories("${PROJECT_BINARY_DIR}")
 # Required libraries
 # This code looks for the required libraries before attempting to build the code
 ####################################################################################
+string(REPLACE ":" ";" RUNTIME_PATH "$ENV{LD_LIBRARY_PATH}")
 # libm
-find_library(LIBM m)
+find_library(LIBM m HINTS ${RUNTIME_PATH})
 if (NOT LIBM)
 	message (FATAL_ERROR "You need libm (-lm) to build this project")
 endif()
 # libopenmpi
-find_library(LIBOPENMPI mpi)
+find_library(LIBOPENMPI mpi HINTS ${RUNTIME_PATH})
 if (NOT LIBOPENMPI)
 	message (FATAL_ERROR "You need libopenmpi (-lmpi) to build this project.")
 endif()
