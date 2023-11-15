@@ -1,0 +1,134 @@
+#!/bin/env pvpython
+import os,argparse
+from paraview.simple import *
+
+# Commandline arguments
+argpar = argparse.ArgumentParser(prog='genpng', description='Generate PNG animations from Ensight files')
+argpar.add_argument('infile',type=str,help='EnsightGold case file')
+argpar.add_argument('outfile',type=str,help='Output file name')
+argpar.add_argument('-p','--path',type=str,help='Path to the output file (default: ./)',dest='path')
+argpar.add_argument('-s','--size',type=str,help='Size of the render window (default 1077,592)',dest='size')
+argpar.add_argument('-r','--resolution',type=str,help='Output resolution (default 681,592)',dest='size')
+
+args = argpar.parse_args()
+if not args.path: args.path = './'
+if not args.size: args.size = '1077,592'
+if not args.res:  args.res  = '681,592'
+
+os.path.makedirs(args.path,exist_ok=True)
+infile  = args.infile
+outfile = os.path.join(args.path,args.outfile)
+size    = [int(i) for i in args.size.split(',')]
+outres  = [int(i) for i in args.res.split(',')]
+
+#### disable automatic camera reset on 'Show'
+paraview.simple._DisableFirstRenderCameraReset()
+
+# create a new 'EnSight Reader'
+reader = EnSightReader(CaseFileName=infile)
+reader.PointArrays = ['ETA', 'U', 'V', 'WINDX', 'TRACER', 'PVORT', 'PERTS']
+# get animation scene
+animationScene1 = GetAnimationScene()
+# update animation scene based on data timesteps
+animationScene1.UpdateAnimationUsingDataTimeSteps()
+# get active view
+renderView1 = GetActiveViewOrCreate('RenderView')
+# uncomment following to set a specific view size
+renderView1.ViewSize = size
+# show data in view
+readerDisplay = Show(reader, renderView1)
+# get color transfer function/color map for 'ETA'
+eTALUT = GetColorTransferFunction('ETA')
+eTALUT.RGBPoints = [0.0, 0.231373, 0.298039, 0.752941, 0.017216049134731293, 0.865003, 0.865003, 0.865003, 0.034432098269462585, 0.705882, 0.0156863, 0.14902]
+eTALUT.ScalarRangeInitialized = 1.0
+# get opacity transfer function/opacity map for 'ETA'
+eTAPWF = GetOpacityTransferFunction('ETA')
+eTAPWF.Points = [0.0, 0.0, 0.5, 0.0, 0.034432098269462585, 1.0, 0.5, 0.0]
+eTAPWF.ScalarRangeInitialized = 1
+# trace defaults for the display properties.
+readerDisplay.Representation = 'Surface'
+readerDisplay.ColorArrayName = ['POINTS', 'ETA']
+readerDisplay.LookupTable = eTALUT
+readerDisplay.OSPRayScaleArray = 'ETA'
+readerDisplay.OSPRayScaleFunction = 'PiecewiseFunction'
+readerDisplay.SelectOrientationVectors = 'ETA'
+readerDisplay.ScaleFactor = 3.0
+readerDisplay.SelectScaleArray = 'ETA'
+readerDisplay.GlyphType = 'Arrow'
+readerDisplay.GlyphTableIndexArray = 'ETA'
+readerDisplay.GaussianRadius = 0.15
+readerDisplay.SetScaleArray = ['POINTS', 'ETA']
+readerDisplay.ScaleTransferFunction = 'PiecewiseFunction'
+readerDisplay.OpacityArray = ['POINTS', 'ETA']
+readerDisplay.OpacityTransferFunction = 'PiecewiseFunction'
+readerDisplay.DataAxesGrid = 'GridAxesRepresentation'
+readerDisplay.SelectionCellLabelFontFile = ''
+readerDisplay.SelectionPointLabelFontFile = ''
+readerDisplay.PolarAxes = 'PolarAxesRepresentation'
+readerDisplay.ScalarOpacityFunction = eTAPWF
+readerDisplay.ScalarOpacityUnitDistance = 0.5833481661567441
+# init the 'PiecewiseFunction' selected for 'ScaleTransferFunction'
+readerDisplay.ScaleTransferFunction.Points = [0.0, 0.0, 0.5, 0.0, 0.034432098269462585, 1.0, 0.5, 0.0]
+# init the 'PiecewiseFunction' selected for 'OpacityTransferFunction'
+readerDisplay.OpacityTransferFunction.Points = [0.0, 0.0, 0.5, 0.0, 0.034432098269462585, 1.0, 0.5, 0.0]
+# init the 'GridAxesRepresentation' selected for 'DataAxesGrid'
+readerDisplay.DataAxesGrid.XTitleFontFile = ''
+readerDisplay.DataAxesGrid.YTitleFontFile = ''
+readerDisplay.DataAxesGrid.ZTitleFontFile = ''
+readerDisplay.DataAxesGrid.XLabelFontFile = ''
+readerDisplay.DataAxesGrid.YLabelFontFile = ''
+readerDisplay.DataAxesGrid.ZLabelFontFile = ''
+# init the 'PolarAxesRepresentation' selected for 'PolarAxes'
+readerDisplay.PolarAxes.PolarAxisTitleFontFile = ''
+readerDisplay.PolarAxes.PolarAxisLabelFontFile = ''
+readerDisplay.PolarAxes.LastRadialAxisTextFontFile = ''
+readerDisplay.PolarAxes.SecondaryRadialAxesTextFontFile = ''
+# reset view to fit data
+renderView1.ResetCamera()
+#changing interaction mode based on data extents
+renderView1.InteractionMode = '2D'
+renderView1.CameraPosition = [15.0, -42.5, 10000.0]
+renderView1.CameraFocalPoint = [15.0, -42.5, 0.0]
+# show color bar/color legend
+readerDisplay.SetScalarBarVisibility(renderView1, True)
+# update the view to ensure updated data information
+renderView1.Update()
+# set scalar coloring
+ColorBy(readerDisplay, ('POINTS', 'PVORT'))
+# Hide the scalar bar for this color map if no visible data is colored by it.
+HideScalarBarIfNotNeeded(eTALUT, renderView1)
+# rescale color and/or opacity maps used to include current data range
+readerDisplay.RescaleTransferFunctionToDataRange(True, False)
+readerDisplay.SetScalarBarVisibility(renderView1, True)
+# get color transfer function/color map for 'PVORT'
+pVORTLUT = GetColorTransferFunction('PVORT')
+pVORTLUT.RGBPoints = [-7.39804988825199e-07, 0.231373, 0.298039, 0.752941, -5.013014998667131e-07, 0.865003, 0.865003, 0.865003, -2.627980109082273e-07, 0.705882, 0.0156863, 0.14902]
+pVORTLUT.ScalarRangeInitialized = 1.0
+# Rescale transfer function
+pVORTLUT.RescaleTransferFunction(-7.3e-07, -2.6e-07)
+# get opacity transfer function/opacity map for 'PVORT'
+pVORTPWF = GetOpacityTransferFunction('PVORT')
+pVORTPWF.Points = [-7.39804988825199e-07, 0.0, 0.5, 0.0, -2.627980109082273e-07, 1.0, 0.5, 0.0]
+pVORTPWF.ScalarRangeInitialized = 1
+# Rescale transfer function
+pVORTPWF.RescaleTransferFunction(-7.3e-07, -2.6e-07)
+# get color legend/bar for pVORTLUT in view renderView1
+pVORTLUTColorBar = GetScalarBar(pVORTLUT, renderView1)
+pVORTLUTColorBar.Title = 'PVORT'
+pVORTLUTColorBar.ComponentTitle = ''
+pVORTLUTColorBar.TitleFontFile = ''
+pVORTLUTColorBar.LabelFontFile = ''
+# change scalar bar placement
+pVORTLUTColorBar.Orientation = 'Horizontal'
+pVORTLUTColorBar.WindowLocation = 'AnyLocation'
+pVORTLUTColorBar.Position = [0.3554688950789228, 0.0293243243243244]
+pVORTLUTColorBar.ScalarBarLength = 0.3300000000000001
+# Apply a preset using its name. Note this may not work as expected when presets have duplicate names.
+pVORTLUT.ApplyPreset('jet', True)
+# current camera placement for renderView1
+renderView1.InteractionMode = '2D'
+renderView1.CameraPosition = [15.0, -42.5, 10000.0]
+renderView1.CameraFocalPoint = [15.0, -42.5, 0.0]
+renderView1.CameraParallelScale = 19.525624189766635
+# save animation
+SaveAnimation(outfile, renderView1, ImageResolution=outres, FrameWindow=[0, 1])
