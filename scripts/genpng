@@ -1,4 +1,5 @@
-#!/bin/env pvpython
+#!/usr/bin/env pvbatch
+from __future__ import print_function, division
 import os,argparse
 from paraview.simple import *
 
@@ -8,14 +9,14 @@ argpar.add_argument('infile',type=str,help='EnsightGold case file')
 argpar.add_argument('outfile',type=str,help='Output file name')
 argpar.add_argument('-p','--path',type=str,help='Path to the output file (default: ./)',dest='path')
 argpar.add_argument('-s','--size',type=str,help='Size of the render window (default 1077,592)',dest='size')
-argpar.add_argument('-r','--resolution',type=str,help='Output resolution (default 681,592)',dest='size')
+argpar.add_argument('-r','--resolution',type=str,help='Output resolution (default 681,592)',dest='res')
 
 args = argpar.parse_args()
 if not args.path: args.path = './'
 if not args.size: args.size = '1077,592'
 if not args.res:  args.res  = '681,592'
 
-os.path.makedirs(args.path,exist_ok=True)
+os.makedirs(args.path,exist_ok=True)
 infile  = args.infile
 outfile = os.path.join(args.path,args.outfile)
 size    = [int(i) for i in args.size.split(',')]
@@ -120,7 +121,7 @@ pVORTLUTColorBar.TitleFontFile = ''
 pVORTLUTColorBar.LabelFontFile = ''
 # change scalar bar placement
 pVORTLUTColorBar.Orientation = 'Horizontal'
-pVORTLUTColorBar.WindowLocation = 'AnyLocation'
+#pVORTLUTColorBar.WindowLocation = 'Any Location'
 pVORTLUTColorBar.Position = [0.3554688950789228, 0.0293243243243244]
 pVORTLUTColorBar.ScalarBarLength = 0.3300000000000001
 # Apply a preset using its name. Note this may not work as expected when presets have duplicate names.
@@ -130,5 +131,17 @@ renderView1.InteractionMode = '2D'
 renderView1.CameraPosition = [15.0, -42.5, 10000.0]
 renderView1.CameraFocalPoint = [15.0, -42.5, 0.0]
 renderView1.CameraParallelScale = 19.525624189766635
-# save animation
-SaveAnimation(outfile, renderView1, ImageResolution=outres, FrameWindow=[0, 1])
+# Animation
+animation = GetAnimationScene()
+animation.UpdateAnimationUsingDataTimeSteps()
+time_keeper = animation.TimeKeeper
+time        = time_keeper.TimestepValues
+# Frames loop
+ni = len(time)
+for ii,t in enumerate(time):
+	# Print some info
+	print('(%.2f%%) processing frame %d of %d at time %.2f'%(float(ii)/float(ni)*100.,ii+1,ni,t),flush=True)
+	# Save screenshot
+	SaveScreenshot(outfile%(ii+1),renderView1,ImageResolution=outres)
+	# Next frame
+	animation.GoToNext()
