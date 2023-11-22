@@ -67,9 +67,11 @@ layout.SetSize(1920, 1024)
 #-----------------------------------
 # saving camera placements for views
 renderView.InteractionMode     = '2D'
-renderView.CameraPosition      = [44.67058120183521, -25.114544726202052, 186.55126314388704]
-renderView.CameraFocalPoint    = [44.67058120183521, -25.114544726202052, 0.0]
-renderView.CameraParallelScale = 24.76651392505024
+#renderView.CameraPosition      = [44.67058120183521, -25.114544726202052, 186.55126314388704]
+#renderView.CameraFocalPoint    = [44.67058120183521, -25.114544726202052, 0.0]
+#renderView.CameraParallelScale = 24.76651392505024
+renderView.ResetActiveCameraToNegativeZ()
+renderView.ResetCamera(False)
 #--------------------------------
 # Animation
 #--------------------------------
