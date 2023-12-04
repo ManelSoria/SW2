@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-CC_BY_4.0-orange)](https://creativecommons.org/licenses/by/4.0/)
 ![DOI](https://zenodo.org/badge/317921022.svg)
 
-(c) Manel Soria, Enrique Garcia-Melendo 2018-2023
+(c) Manel Soria, Arnau Miró, Enrique Garcia-Melendo 2018-2023
 
 SW2 stands for Shallow Worlds, version 2.
 
