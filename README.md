@@ -2,7 +2,7 @@
 ![SW2 build status](https://github.com/ManelSoria/SW2/actions/workflows/sw2_ci.yml/badge.svg)
 ![DOI](https://zenodo.org/badge/317921022.svg)
 
-(c) Manel Soria, Enrique Garcia-Melendo 2018-2020
+(c) Manel Soria, Enrique Garcia-Melendo 2018-2023
 
 SW2 stands for Shallow Worlds, version 2.
 
@@ -10,7 +10,7 @@ Shallow World 2 is a parallel code that implements a Shallow Water model designe
 
 SW2 is based on SW (Shallow Worlds) that was developed by E. G. Melendo in Esteve Duran Observatory and UPV/EHU in 2013.
 
-SW2 has been developed by M.Soria, A.Prat, A.Sabates, M.Andres-Carcasona and E.G.Melendo in ESEIAAT/UPC.
+SW2 has been developed by M.Soria, A.Miró, A.Prat, A.Sabates, M.Andres-Carcasona and E.G.Melendo in ESEIAAT/UPC.
 
 If you use SW2 in a published work, cite:
 
@@ -19,7 +19,6 @@ Garcia-Melendo  &  Sanchez-Lavega, Icarus 286, 2017; Sanchez-Lavega et al. NA 4,
 Both SW and SW2 have been used in the following references:
 
 E. Garcia-Melendo  and  A. Sanchez-Lavega, 2017, 2017, Shallow water simulations of Saturn’s giant storms at different latitudes. Icarus 286, 241-260. DOI: http://dx.doi.org/10.1016/j.icarus.2016.10.006
-
 
 J. Legarreta;  N. Barrado-Izagirre;  E. Garcia-Melendo;  A. Sanchez-Lavega; J. M. Gomez-Forrellad, and the IOPW Team. 2016. A large active wave trapped in Jupiter’s equator, A&A 586, A154. DOI: https://doi.org/10.1051/0004-6361/201526197.
 
