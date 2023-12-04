@@ -1,5 +1,6 @@
 # Shallow Worlds 2
 ![SW2 build status](https://github.com/ManelSoria/SW2/actions/workflows/sw2_ci.yml/badge.svg)
+[![License](https://img.shields.io/badge/license-CC_BY_4.0-orange)](https://creativecommons.org/licenses/by/4.0/)
 ![DOI](https://zenodo.org/badge/317921022.svg)
 
 (c) Manel Soria, Enrique Garcia-Melendo 2018-2023
