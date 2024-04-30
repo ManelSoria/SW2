@@ -1,9 +1,9 @@
-#Parameters for this run (case.123001)
+# Parameters for this run (case.123001)
 define(P1,6.880000e+01)
 define(P2,2.000000e+09)
 define(P3,1.500000e+09)
 
-#Template (template_23.sw):
+# Template (template_23.sw):
 # Nature 2019, tempesta de dalt WS2
 
 define(PI,3.14159265)
@@ -18,21 +18,22 @@ lon1 60.0         # End longitude
 lat0 65.0         # Start latitude (1 deg)
 lat1 75.0         # End latitude
 
-#petita:
 nx 600
 ny 100
 
-t0 0.0   # Start time (s)
-t1  <DT*100>  # End time # !!!!!!!!!
+t0  0.0      # Start time (s)
+t1  <DT*100> # End time
 
-Dt DT # Time step
-Tau 1e9
-Hypernu 0 0 0 
-IteInfo 1 # !!!!!!!!!
+Dt  DT   # Time step
+CFL 0.25 # Max CFL allowed
+
+Tau       1e9
+Hypernu   0 0 0 
+IteInfo   1 # !!!!!!!!!
 SaveEvery 1 # !!!!!!!!!
-LoadFrom 0 # Last file
+LoadFrom  0 # Last file
 
-reftype    0 # 0: no comparison
+reftype   0 # 0: no comparison
 
 include(SaturnEGM2.planet)
 
@@ -55,6 +56,6 @@ geoeq 0
 # Time constant of the dissipation of the tracer
 TracerDis 0
 
-#wind profiles
+# Wind profiles
 #include(nowind.wind)
 include(Saturn_Cassini.wind)

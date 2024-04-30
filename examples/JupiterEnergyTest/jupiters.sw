@@ -1,9 +1,9 @@
-#Parameters for this run (case.161001)
+# Parameters for this run (case.161001)
 define(P1,-2.250000e+01)
 define(P2,4.520000e+11)
 define(P3,3.500000e+06)
 
-#Template (template_61.sw):
+# Template (template_61.sw):
 # Nature 2019, les dues tempestes polars juntes
 
 define(PI,3.14159265)
@@ -13,27 +13,25 @@ define(DT,50) # time step (s)
 sch   1
 polar 0
 
-lon0 0.0          # Start longitude (1 deg)
-lon1 90.0         # End longitude
+lon0  0.0          # Start longitude (1 deg)
+lon1  90.0         # End longitude
 lat0 -35.0         # Start latitude (1 deg)
 lat1 -10.0         # End latitude
 
-#petita:
 nx 50
 ny 50
 
-t0 0.0   # Start time (s)
+t0  0.0       # Start time (s)
 t1  <DAY*20>  # End time # !!!!!!!!!                  
-#t1 0
 
-Dt DT # Time step
+Dt  DT   # Time step
 CFL 0.25 # Max CFL allowed
 
-Tau 1e7
-Hypernu 0. 0. 0. 
-IteInfo 100 # !!!!!!!!!
-SaveEvery <12*3600/DT> # !!!!!!!!!
-LoadFrom 0 # Last file
+Tau       1e7
+Hypernu   0. 0. 0. 
+IteInfo   100
+SaveEvery <12*3600/DT>
+LoadFrom  0 # Last file
 
 reftype    0 # 0: no comparison
 
@@ -57,6 +55,5 @@ geoeq 0
 # Time constant of the dissipation of the tracer
 TracerDis 0
 
-#wind profiles
+# Wind profiles
 include(nowind.wind)
-
